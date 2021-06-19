@@ -28,15 +28,9 @@ class WorkoutLoader: ObservableObject {
     }
 
     func load() {
-        let allTypes = Set(
-            [
-                HKObjectType.workoutType(),
-                // Do we actually need running/walking distance?
-                HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!,
-            ]
-        )
+        let workouts = Set([HKObjectType.workoutType()])
 
-        store.requestAuthorization(toShare: [], read: allTypes) { (success, error) in
+        store.requestAuthorization(toShare: [], read: workouts) { (success, error) in
             if !success {
                 // Handle the error here.
             } else {
@@ -83,7 +77,7 @@ class WorkoutLoader: ObservableObject {
 
         let sortDescriptor = NSSortDescriptor(
             key: HKSampleSortIdentifierEndDate,
-            ascending: true
+            ascending: false
         )
 
         let query = HKSampleQuery(
