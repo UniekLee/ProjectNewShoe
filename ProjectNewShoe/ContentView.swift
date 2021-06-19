@@ -6,11 +6,35 @@
 //
 
 import SwiftUI
+import HealthKit
 
 struct ContentView: View {
+    @ObservedObject var loader = WorkoutLoader()
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        List {
+            ForEach(loader.workouts) { workout in
+                    HStack {
+                        Image(
+                            systemName:
+                                workout.workoutActivityType == .walking ?
+                                "figure.walk" :
+                                "figure.wave"
+                        )
+                        VStack(alignment: .leading) {
+                            Text(workout.workoutActivityType == .walking ? "Walk" : "Run").font(.body)
+                            Text(loader.dateFormatter.string(from: workout.startDate)).font(.footnote)
+                        }
+                        Spacer()
+                        Text("\(workout.totalDistance?.doubleValue(for: HKUnit.meterUnit(with: .kilo)) ?? 0) km")
+                    }
+            }
+        }
+        .onAppear(
+            perform: {
+                loader.load()
+            }
+        )
     }
 }
 

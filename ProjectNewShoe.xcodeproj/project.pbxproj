@@ -13,6 +13,8 @@
 		3BAE60FE267929630003551D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BAE60FD267929630003551D /* Preview Assets.xcassets */; };
 		3BAE6109267929640003551D /* ProjectNewShoeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE6108267929640003551D /* ProjectNewShoeTests.swift */; };
 		3BAE6114267929640003551D /* ProjectNewShoeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE6113267929640003551D /* ProjectNewShoeUITests.swift */; };
+		3BAE6125267929800003551D /* WorkoutLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE6124267929800003551D /* WorkoutLoader.swift */; };
+		3BAE612C267930DB0003551D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAE612B267930DA0003551D /* HealthKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,9 @@
 		3BAE610F267929640003551D /* ProjectNewShoeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectNewShoeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BAE6113267929640003551D /* ProjectNewShoeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectNewShoeUITests.swift; sourceTree = "<group>"; };
 		3BAE6115267929640003551D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BAE6124267929800003551D /* WorkoutLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLoader.swift; sourceTree = "<group>"; };
+		3BAE6129267930DA0003551D /* ProjectNewShoe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProjectNewShoe.entitlements; sourceTree = "<group>"; };
+		3BAE612B267930DA0003551D /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BAE612C267930DB0003551D /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +85,7 @@
 				3BAE6107267929640003551D /* ProjectNewShoeTests */,
 				3BAE6112267929640003551D /* ProjectNewShoeUITests */,
 				3BAE60F42679295F0003551D /* Products */,
+				3BAE612A267930DA0003551D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,11 +102,13 @@
 		3BAE60F52679295F0003551D /* ProjectNewShoe */ = {
 			isa = PBXGroup;
 			children = (
+				3BAE6129267930DA0003551D /* ProjectNewShoe.entitlements */,
 				3BAE60F62679295F0003551D /* ProjectNewShoeApp.swift */,
 				3BAE60F82679295F0003551D /* ContentView.swift */,
 				3BAE60FA267929630003551D /* Assets.xcassets */,
 				3BAE60FF267929630003551D /* Info.plist */,
 				3BAE60FC267929630003551D /* Preview Content */,
+				3BAE6124267929800003551D /* WorkoutLoader.swift */,
 			);
 			path = ProjectNewShoe;
 			sourceTree = "<group>";
@@ -128,6 +137,14 @@
 				3BAE6115267929640003551D /* Info.plist */,
 			);
 			path = ProjectNewShoeUITests;
+			sourceTree = "<group>";
+		};
+		3BAE612A267930DA0003551D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3BAE612B267930DA0003551D /* HealthKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BAE60F92679295F0003551D /* ContentView.swift in Sources */,
+				3BAE6125267929800003551D /* WorkoutLoader.swift in Sources */,
 				3BAE60F72679295F0003551D /* ProjectNewShoeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,6 +435,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ProjectNewShoe/ProjectNewShoe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ProjectNewShoe/Preview Content\"";
 				DEVELOPMENT_TEAM = TLD24BM42Z;
@@ -439,6 +458,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ProjectNewShoe/ProjectNewShoe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ProjectNewShoe/Preview Content\"";
 				DEVELOPMENT_TEAM = TLD24BM42Z;
