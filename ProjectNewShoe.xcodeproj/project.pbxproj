@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B3313BD26851779007E40AD /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3313BC26851779007E40AD /* Formatters.swift */; };
 		3BAE60F72679295F0003551D /* ProjectNewShoeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE60F62679295F0003551D /* ProjectNewShoeApp.swift */; };
 		3BAE60F92679295F0003551D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE60F82679295F0003551D /* ContentView.swift */; };
 		3BAE60FB267929630003551D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BAE60FA267929630003551D /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B3313BC26851779007E40AD /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		3BAE60F32679295F0003551D /* ProjectNewShoe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectNewShoe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BAE60F62679295F0003551D /* ProjectNewShoeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectNewShoeApp.swift; sourceTree = "<group>"; };
 		3BAE60F82679295F0003551D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				3BAE60FF267929630003551D /* Info.plist */,
 				3BAE60FC267929630003551D /* Preview Content */,
 				3BAE6124267929800003551D /* WorkoutLoader.swift */,
+				3B3313BC26851779007E40AD /* Formatters.swift */,
 			);
 			path = ProjectNewShoe;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			files = (
 				3BAE60F92679295F0003551D /* ContentView.swift in Sources */,
 				3BAE6125267929800003551D /* WorkoutLoader.swift in Sources */,
+				3B3313BD26851779007E40AD /* Formatters.swift in Sources */,
 				3BAE60F72679295F0003551D /* ProjectNewShoeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

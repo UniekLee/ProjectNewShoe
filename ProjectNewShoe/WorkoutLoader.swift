@@ -13,14 +13,8 @@ extension HKWorkout: Identifiable {
 }
 
 class WorkoutLoader: ObservableObject {
-    lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        return formatter
-    }()
-
     private let store: HKHealthStore
-    @Published var workouts: [HKWorkout] = []
+    @Published var workouts: [Workout] = []
 
     init() {
         guard HKHealthStore.isHealthDataAvailable() else { fatalError("HealthKit unavailable") }
@@ -36,8 +30,9 @@ class WorkoutLoader: ObservableObject {
             } else {
                 self.loadSources { sources in
                     self.loadWorkouts(from: sources) { (workoutsOrNil, errorOrNil) in
-                        guard let workouts = workoutsOrNil else { fatalError("No workouts") }
-                        self.workouts = workouts
+                        guard let hkWorkouts = workoutsOrNil
+                        else { fatalError("No workouts") }
+                        self.workouts = hkWorkouts.map({ Workout(hkWorkout: $0) })
                     }
                 }
             }

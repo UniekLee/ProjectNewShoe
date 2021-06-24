@@ -15,18 +15,13 @@ struct ContentView: View {
         List {
             ForEach(loader.workouts) { workout in
                     HStack {
-                        Image(
-                            systemName:
-                                workout.workoutActivityType == .walking ?
-                                "figure.walk" :
-                                "figure.wave"
-                        )
+                        workout.icon
                         VStack(alignment: .leading) {
-                            Text(workout.workoutActivityType == .walking ? "Walk" : "Run").font(.body)
-                            Text(loader.dateFormatter.string(from: workout.startDate)).font(.footnote)
+                            Text(workout.name).font(.body)
+                            Text(workout.date).font(.footnote)
                         }
                         Spacer()
-                        Text("\(workout.totalDistance?.doubleValue(for: HKUnit.meterUnit(with: .kilo)) ?? 0) km")
+                        Text(workout.distance)
                     }
             }
         }
@@ -41,5 +36,55 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct Workout: Identifiable {
+    let id: UUID
+
+    let icon: Image
+    let name: String
+    let date: String
+    let distance: String
+
+    let isIncluded: Bool
+}
+
+extension Workout {
+    init(hkWorkout: HKWorkout) {
+        self.id = hkWorkout.uuid
+
+        self.icon = hkWorkout.image
+        self.name = hkWorkout.name
+        self.date = Formatter.date.string(from: hkWorkout.startDate)
+        self.distance = "\(hkWorkout.totalDistanceInKM) km"
+
+        self.isIncluded = false
+    }
+}
+
+extension HKWorkout {
+    var image: Image {
+        switch workoutActivityType {
+        case .walking: return Image(systemName: "figure.walk")
+        case .running: return Image(systemName: "bolt.heart.fill")
+        default: return Image(systemName: "cross.fill")
+        }
+    }
+
+    var name: String {
+        switch workoutActivityType {
+        case .walking: return "Walk"
+        case .running: return "Run"
+        default: return "Oopsie"
+        }
+    }
+
+    var totalDistanceInKM: Double {
+        round(
+            (totalDistance?.doubleValue(
+                for: HKUnit.meterUnit(with: .kilo)
+            ) ?? 0) * 100
+        ) / 100
     }
 }
