@@ -15,9 +15,7 @@ struct WorkoutListView: View {
             ForEach(viewModel.workoutViewModels) { workoutVM in
                 WorkoutView(
                     viewModel: WorkoutViewModel(workout: workoutVM.workout)
-                ).onTapGesture {
-                    viewModel.toggleInclusion(of: workoutVM.workout)
-                }
+                )
             }
         }
         .navigationTitle("Project New Shoe")

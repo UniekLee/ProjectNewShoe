@@ -21,7 +21,7 @@ struct WorkoutView: View {
             Text(viewModel.workout.distance)
             Image(systemName: viewModel.inclusionStateIconName)
                 .onTapGesture {
-                    self.viewModel.workout.isIncluded.toggle()
+                    self.viewModel.toggleInclusion()
                 }
         }
     }

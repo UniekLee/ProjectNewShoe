@@ -29,4 +29,9 @@ class WorkoutViewModel: ObservableObject, Identifiable {
             .assign(to: \.id, on: self)
             .store(in: &cancellables)
     }
+
+    func toggleInclusion() {
+        Persistence.shared.toggle(workout: workout)
+        workout.isIncluded.toggle()
+    }
 }

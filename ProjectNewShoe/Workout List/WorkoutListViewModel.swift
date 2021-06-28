@@ -18,8 +18,4 @@ class WorkoutListViewModel: ObservableObject {
             WorkoutViewModel(workout: workout)
         }
     }
-
-    func toggleInclusion(of workout: Workout) {
-        Persistence.shared.toggle(workout: workout)
-    }
 }
