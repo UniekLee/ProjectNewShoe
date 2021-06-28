@@ -12,7 +12,7 @@ class WorkoutViewModel: ObservableObject, Identifiable {
     @Published var workout: Workout
 
     var id: UUID = UUID()
-    @Published var completionStateIconName = ""
+    @Published var inclusionStateIconName = ""
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -21,7 +21,7 @@ class WorkoutViewModel: ObservableObject, Identifiable {
 
         $workout
             .map { $0.isIncluded ? "checkmark.circle.fill" : "circle" }
-            .assign(to: \.completionStateIconName, on: self)
+            .assign(to: \.inclusionStateIconName, on: self)
             .store(in: &cancellables)
 
         $workout

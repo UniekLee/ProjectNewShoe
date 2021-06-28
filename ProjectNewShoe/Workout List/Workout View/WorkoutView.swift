@@ -19,7 +19,10 @@ struct WorkoutView: View {
             }
             Spacer()
             Text(viewModel.workout.distance)
-            viewModel.workout.isIncluded ? Image(systemName: "checkmark.circle.fill") : Image(systemName: "circle")
+            Image(systemName: viewModel.inclusionStateIconName)
+                .onTapGesture {
+                    self.viewModel.workout.isIncluded.toggle()
+                }
         }
     }
 }
