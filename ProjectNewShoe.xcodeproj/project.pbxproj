@@ -18,6 +18,7 @@
 		3BAE6114267929640003551D /* ProjectNewShoeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE6113267929640003551D /* ProjectNewShoeUITests.swift */; };
 		3BAE6125267929800003551D /* WorkoutLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE6124267929800003551D /* WorkoutLoader.swift */; };
 		3BAE612C267930DB0003551D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAE612B267930DA0003551D /* HealthKit.framework */; };
+		3BEB3D5D268A5541008E18E8 /* WorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB3D5C268A5541008E18E8 /* WorkoutListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		3BAE6124267929800003551D /* WorkoutLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLoader.swift; sourceTree = "<group>"; };
 		3BAE6129267930DA0003551D /* ProjectNewShoe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProjectNewShoe.entitlements; sourceTree = "<group>"; };
 		3BAE612B267930DA0003551D /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		3BEB3D5C268A5541008E18E8 /* WorkoutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,10 +112,11 @@
 			children = (
 				3BAE6129267930DA0003551D /* ProjectNewShoe.entitlements */,
 				3BAE60F62679295F0003551D /* ProjectNewShoeApp.swift */,
-				3BAE60F82679295F0003551D /* ContentView.swift */,
 				3BAE60FA267929630003551D /* Assets.xcassets */,
 				3BAE60FF267929630003551D /* Info.plist */,
 				3BAE60FC267929630003551D /* Preview Content */,
+				3BAE60F82679295F0003551D /* ContentView.swift */,
+				3BEB3D5C268A5541008E18E8 /* WorkoutListView.swift */,
 				3BAE6124267929800003551D /* WorkoutLoader.swift */,
 				3B3313BC26851779007E40AD /* Formatters.swift */,
 				3B3313BE26851B72007E40AD /* Persistence.swift */,
@@ -288,6 +291,7 @@
 				3BAE60F92679295F0003551D /* ContentView.swift in Sources */,
 				3BAE6125267929800003551D /* WorkoutLoader.swift in Sources */,
 				3B3313BD26851779007E40AD /* Formatters.swift in Sources */,
+				3BEB3D5D268A5541008E18E8 /* WorkoutListView.swift in Sources */,
 				3B3313BF26851B72007E40AD /* Persistence.swift in Sources */,
 				3BAE60F72679295F0003551D /* ProjectNewShoeApp.swift in Sources */,
 				3B3313C126851EF5007E40AD /* Workout.swift in Sources */,

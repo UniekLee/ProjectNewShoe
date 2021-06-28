@@ -13,24 +13,7 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(loader.workouts) { workout in
-                    HStack {
-                        Image(systemName: workout.iconName)
-                        VStack(alignment: .leading) {
-                            Text(workout.name).font(.body)
-                            Text(workout.date).font(.footnote)
-                        }
-                        Spacer()
-                        Text(workout.distance)
-                        workout.isIncluded ? Image(systemName: "checkmark.circle.fill") : Image(systemName: "circle")
-                    }
-                    .onTapGesture {
-                        loader.toggleInclusion(of: workout)
-                    }
-                }
-            }
-            .navigationTitle("Project New Shoe")
+            WorkoutListView(loader: loader)
         }
         .onAppear(
             perform: {
