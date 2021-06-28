@@ -11,8 +11,6 @@ import Combine
 class WorkoutListViewModel: ObservableObject {
     @Published var workoutViewModels: [WorkoutViewModel] = []
 
-    private var cancellables = Set<AnyCancellable>()
-
     init(workouts: [Workout]) {
         self.workoutViewModels = workouts.map { workout in
             WorkoutViewModel(workout: workout)
