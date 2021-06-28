@@ -39,6 +39,10 @@ class WorkoutLoader: ObservableObject {
         }
     }
 
+    func toggleInclusion(of workout: Workout) {
+        Persistence.shared.toggle(workout: workout)
+    }
+
     private func loadSources(completion: @escaping (Set<HKSource>) -> Void) {
         let workouts = HKObjectType.workoutType()
         let query = HKSourceQuery(
