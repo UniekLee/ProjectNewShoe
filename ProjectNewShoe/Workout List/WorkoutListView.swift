@@ -13,17 +13,9 @@ struct WorkoutListView: View {
     var body: some View {
         List {
             ForEach(viewModel.workoutViewModels) { workoutVM in
-                HStack {
-                    Image(systemName: workoutVM.workout.iconName)
-                    VStack(alignment: .leading) {
-                        Text(workoutVM.workout.name).font(.body)
-                        Text(workoutVM.workout.date).font(.footnote)
-                    }
-                    Spacer()
-                    Text(workoutVM.workout.distance)
-                    workoutVM.workout.isIncluded ? Image(systemName: "checkmark.circle.fill") : Image(systemName: "circle")
-                }
-                .onTapGesture {
+                WorkoutView(
+                    viewModel: WorkoutViewModel(workout: workoutVM.workout)
+                ).onTapGesture {
                     viewModel.toggleInclusion(of: workoutVM.workout)
                 }
             }
