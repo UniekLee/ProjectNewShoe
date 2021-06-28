@@ -19,6 +19,9 @@
 		3BAE6125267929800003551D /* WorkoutLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAE6124267929800003551D /* WorkoutLoader.swift */; };
 		3BAE612C267930DB0003551D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BAE612B267930DA0003551D /* HealthKit.framework */; };
 		3BEB3D5D268A5541008E18E8 /* WorkoutListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB3D5C268A5541008E18E8 /* WorkoutListView.swift */; };
+		3BEB3D60268A5698008E18E8 /* WorkoutListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB3D5F268A5698008E18E8 /* WorkoutListViewModel.swift */; };
+		3BEB3D63268A56F0008E18E8 /* WorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB3D62268A56F0008E18E8 /* WorkoutViewModel.swift */; };
+		3BEB3D65268A59BC008E18E8 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB3D64268A59BC008E18E8 /* WorkoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +61,9 @@
 		3BAE6129267930DA0003551D /* ProjectNewShoe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ProjectNewShoe.entitlements; sourceTree = "<group>"; };
 		3BAE612B267930DA0003551D /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		3BEB3D5C268A5541008E18E8 /* WorkoutListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListView.swift; sourceTree = "<group>"; };
+		3BEB3D5F268A5698008E18E8 /* WorkoutListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListViewModel.swift; sourceTree = "<group>"; };
+		3BEB3D62268A56F0008E18E8 /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
+		3BEB3D64268A59BC008E18E8 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,8 +122,8 @@
 				3BAE60FF267929630003551D /* Info.plist */,
 				3BAE60FC267929630003551D /* Preview Content */,
 				3BAE60F82679295F0003551D /* ContentView.swift */,
-				3BEB3D5C268A5541008E18E8 /* WorkoutListView.swift */,
 				3BAE6124267929800003551D /* WorkoutLoader.swift */,
+				3BEB3D5E268A5685008E18E8 /* Workout List */,
 				3B3313BC26851779007E40AD /* Formatters.swift */,
 				3B3313BE26851B72007E40AD /* Persistence.swift */,
 				3B3313C026851EF5007E40AD /* Workout.swift */,
@@ -157,6 +163,25 @@
 				3BAE612B267930DA0003551D /* HealthKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3BEB3D5E268A5685008E18E8 /* Workout List */ = {
+			isa = PBXGroup;
+			children = (
+				3BEB3D5C268A5541008E18E8 /* WorkoutListView.swift */,
+				3BEB3D5F268A5698008E18E8 /* WorkoutListViewModel.swift */,
+				3BEB3D61268A56D6008E18E8 /* Workout View */,
+			);
+			path = "Workout List";
+			sourceTree = "<group>";
+		};
+		3BEB3D61268A56D6008E18E8 /* Workout View */ = {
+			isa = PBXGroup;
+			children = (
+				3BEB3D64268A59BC008E18E8 /* WorkoutView.swift */,
+				3BEB3D62268A56F0008E18E8 /* WorkoutViewModel.swift */,
+			);
+			path = "Workout View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,8 +313,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BEB3D60268A5698008E18E8 /* WorkoutListViewModel.swift in Sources */,
+				3BEB3D63268A56F0008E18E8 /* WorkoutViewModel.swift in Sources */,
 				3BAE60F92679295F0003551D /* ContentView.swift in Sources */,
 				3BAE6125267929800003551D /* WorkoutLoader.swift in Sources */,
+				3BEB3D65268A59BC008E18E8 /* WorkoutView.swift in Sources */,
 				3B3313BD26851779007E40AD /* Formatters.swift in Sources */,
 				3BEB3D5D268A5541008E18E8 /* WorkoutListView.swift in Sources */,
 				3B3313BF26851B72007E40AD /* Persistence.swift in Sources */,

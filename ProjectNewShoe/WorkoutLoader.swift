@@ -21,7 +21,7 @@ class WorkoutLoader: ObservableObject {
         self.store = HKHealthStore()
     }
 
-    func load() {
+    func load(completion: @escaping ([Workout]) -> Void) {
         let workouts = Set([HKObjectType.workoutType()])
 
         store.requestAuthorization(toShare: [], read: workouts) { (success, error) in
@@ -32,7 +32,8 @@ class WorkoutLoader: ObservableObject {
                     self.loadWorkouts(from: sources) { (workoutsOrNil, errorOrNil) in
                         guard let hkWorkouts = workoutsOrNil
                         else { fatalError("No workouts") }
-                        self.workouts = hkWorkouts.map({ Workout(hkWorkout: $0) })
+                        let workouts = hkWorkouts.map({ Workout(hkWorkout: $0) })
+                        completion(workouts)
                     }
                 }
             }
