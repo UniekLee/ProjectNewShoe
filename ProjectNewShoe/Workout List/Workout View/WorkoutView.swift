@@ -18,7 +18,7 @@ struct WorkoutView: View {
                 Text(viewModel.workout.date).font(.footnote)
             }
             Spacer()
-            Text(viewModel.workout.distance)
+            Text(viewModel.distance)
             Image(systemName: viewModel.inclusionStateIconName)
                 .onTapGesture {
                     self.viewModel.toggleInclusion()
@@ -36,7 +36,7 @@ struct WorkoutView_Previews: PreviewProvider {
                     iconName: "circle",
                     name: "Run",
                     date: "5 June",
-                    distance: "Something",
+                    distance: 1234,
                     isIncluded: true
                 )
             )

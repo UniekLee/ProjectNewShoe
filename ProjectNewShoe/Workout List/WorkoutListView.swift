@@ -11,11 +11,19 @@ struct WorkoutListView: View {
     @ObservedObject var viewModel: WorkoutListViewModel
 
     var body: some View {
-        List {
-            ForEach(viewModel.workoutViewModels) { workoutVM in
-                WorkoutView(
-                    viewModel: WorkoutViewModel(workout: workoutVM.workout)
-                )
+        VStack {
+            HStack {
+                Text("Total distance")
+                Spacer()
+                Text("\(viewModel.totalDistance.asRoundedKM, specifier: "%.2f") km")
+            }
+            .padding()
+            List {
+                ForEach(viewModel.workoutViewModels) { workoutVM in
+                    WorkoutView(
+                        viewModel: WorkoutViewModel(workout: workoutVM.workout)
+                    )
+                }
             }
         }
         .navigationTitle("Project New Shoe")

@@ -14,7 +14,7 @@ struct Workout: Identifiable {
     let iconName: String
     let name: String
     let date: String
-    let distance: String
+    let distance: Int
 
     var isIncluded: Bool
 }
@@ -26,7 +26,7 @@ extension Workout {
         self.iconName = hkWorkout.image
         self.name = hkWorkout.name
         self.date = Formatter.date.string(from: hkWorkout.startDate)
-        self.distance = "\(hkWorkout.totalDistanceInKM) km"
+        self.distance = hkWorkout.totalDistanceInM
 
         self.isIncluded = Persistence.shared.isIncluded(hkWorkout.uuid)
     }
@@ -49,11 +49,11 @@ extension HKWorkout {
         }
     }
 
-    var totalDistanceInKM: Double {
-        round(
+    var totalDistanceInM: Int {
+        Int(
             (totalDistance?.doubleValue(
-                for: HKUnit.meterUnit(with: .kilo)
-            ) ?? 0) * 100
-        ) / 100
+                for: HKUnit.meter()
+            ) ?? 0)
+        )
     }
 }
