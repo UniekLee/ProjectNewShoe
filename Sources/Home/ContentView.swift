@@ -7,8 +7,31 @@
 
 import SwiftUI
 import HealthKit
+import ComposableArchitecture
+
+// Core domain of the app
+struct AppState {
+}
+
+enum AppAction {
+}
+
+struct AppEnvironment {
+}
+
+let appReducer = Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
+    // Business logic goes here. That means:
+    // 1. Make any mutations to the State, necessary for the Action. (Pure logic)
+    // 2. After all mutations, return an Effect. ("Impure" logic, ie: side-effects)
+    // That's all that can happen here.
+    switch action {
+
+    }
+}
 
 struct ContentView: View {
+    let store: Store<AppState, AppAction>
+
     enum DataState {
         case loading, noData
         case loaded(workouts: [Workout])
@@ -42,6 +65,12 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(
+            store: Store(
+                initialState: AppState(),
+                reducer: appReducer,
+                environment: AppEnvironment()
+            )
+        )
     }
 }

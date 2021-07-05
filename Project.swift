@@ -24,7 +24,7 @@ let project = Project(
             entitlements: "Config/ProjectNewShoe.plist",
             dependencies: [
                 .sdk(name: "HealthKit.framework", status: .required),
-//                .package(product: "swift-composable-architecture")
+                .package(product: "ComposableArchitecture")
             ]
         ),
         Target(
