@@ -12,7 +12,7 @@ struct WorkoutView: View {
 
     var body: some View {
         HStack {
-            Image(systemName: viewModel.workout.iconName)
+            Text(viewModel.workout.iconName)
             VStack(alignment: .leading) {
                 Text(viewModel.workout.name).font(.body)
                 Text(viewModel.workout.date).font(.footnote)

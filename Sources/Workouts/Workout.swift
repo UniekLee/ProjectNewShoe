@@ -35,9 +35,9 @@ extension Workout {
 extension HKWorkout {
     var image: String {
         switch workoutActivityType {
-        case .walking: return "figure.walk"
-        case .running: return "bolt.heart.fill"
-        default: return "cross.fill"
+        case .walking: return "🐕🚶🏼"
+        case .running: return "🏃🏻‍♂️💨"
+        default: return "🤷🏻‍♂️"
         }
     }
 
