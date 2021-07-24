@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  ProjectNewShoe
-//
-//  Created by Lee Watkins on 15/06/2021.
-//
-
 import SwiftUI
 import HealthKit
 import ComposableArchitecture

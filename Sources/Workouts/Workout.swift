@@ -1,10 +1,3 @@
-//
-//  Workout.swift
-//  ProjectNewShoe
-//
-//  Created by Lee Watkins on 24/06/2021.
-//
-
 import Foundation
 import HealthKit
 
@@ -35,7 +28,7 @@ extension Workout {
 extension HKWorkout {
     var image: String {
         switch workoutActivityType {
-        case .walking: return "🐕🚶🏼"
+        case .walking: return "🚶🏼✨"
         case .running: return "🏃🏻‍♂️💨"
         default: return "🤷🏻‍♂️"
         }

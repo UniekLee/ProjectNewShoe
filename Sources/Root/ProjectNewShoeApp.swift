@@ -1,10 +1,3 @@
-//
-//  ProjectNewShoeApp.swift
-//  ProjectNewShoe
-//
-//  Created by Lee Watkins on 15/06/2021.
-//
-
 import ComposableArchitecture
 import SwiftUI
 
