@@ -1,17 +1,6 @@
 import Foundation
 import HealthKit
 
-struct Workout: Identifiable {
-    let id: UUID
-
-    let iconName: String
-    let name: String
-    let date: String
-    let distance: Int
-
-    var isIncluded: Bool
-}
-
 extension Workout {
     init(hkWorkout: HKWorkout) {
         self.id = hkWorkout.uuid

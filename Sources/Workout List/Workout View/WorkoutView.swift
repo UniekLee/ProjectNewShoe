@@ -1,4 +1,30 @@
 import SwiftUI
+import ComposableArchitecture
+
+struct Workout: Equatable, Identifiable {
+    let id: UUID
+
+    let iconName: String
+    let name: String
+    let date: String
+    let distance: Int
+
+    var isIncluded: Bool
+}
+
+enum WorkoutAction {
+    case inclusionToggled
+}
+
+struct WorkoutEnvironment {}
+
+let workoutReducer = Reducer<Workout, WorkoutAction, WorkoutEnvironment> { state, action, env in
+    switch action {
+    case .inclusionToggled:
+        state.isIncluded.toggle()
+        return .none
+    }
+}
 
 struct WorkoutView: View {
     @ObservedObject var viewModel: WorkoutViewModel
