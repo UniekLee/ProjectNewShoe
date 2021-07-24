@@ -38,26 +38,11 @@ struct ContentView: View {
                 List {
                     ForEachStore(
                         self.store.scope(
-                            state: { $0.workouts },
-                            action: { AppAction.workout(index: $0, action: $1) }
-                        )
-                    ) { workoutStore in
-                        WithViewStore(workoutStore) { workoutViewStore in
-                            HStack {
-                                Image(systemName: workoutViewStore.iconName)
-                                VStack(alignment: .leading) {
-                                    Text(workoutViewStore.name).font(.body)
-                                    Text(workoutViewStore.date).font(.footnote)
-                                }
-                                Spacer()
-                                Text("\(workoutViewStore.distance.asRoundedKM)")
-                                Image(systemName: workoutViewStore.isIncluded ? "checkmark.circle.fill" : "circle")
-                            }
-                            .onTapGesture {
-                                workoutViewStore.send(.inclusionToggled)
-                            }
-                        }
-                    }
+                            state: \.workouts,
+                            action: AppAction.workout(index:action:)
+                        ),
+                        content: WorkoutView.init(store:)
+                    )
                 }
             }
 

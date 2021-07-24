@@ -12,11 +12,11 @@ struct WorkoutListView: View {
             }
             .padding()
             List {
-                ForEach(viewModel.workoutViewModels) { workoutVM in
-                    WorkoutView(
-                        viewModel: WorkoutViewModel(workout: workoutVM.workout)
-                    )
-                }
+//                ForEach(viewModel.workoutViewModels) { workoutVM in
+//                    WorkoutView(
+//                        viewModel: WorkoutViewModel(workout: workoutVM.workout)
+//                    )
+//                }
             }
         }
         .navigationTitle("Project New Shoe")

@@ -21,27 +21,30 @@ struct WorkoutEnvironment {}
 let workoutReducer = Reducer<Workout, WorkoutAction, WorkoutEnvironment> { state, action, env in
     switch action {
     case .inclusionToggled:
+        // TODO: Need to update Persistence here 
         state.isIncluded.toggle()
         return .none
     }
 }
 
 struct WorkoutView: View {
-    @ObservedObject var viewModel: WorkoutViewModel
+    let store: Store<Workout, WorkoutAction>
 
     var body: some View {
-        HStack {
-            Text(viewModel.workout.iconName)
-            VStack(alignment: .leading) {
-                Text(viewModel.workout.name).font(.body)
-                Text(viewModel.workout.date).font(.footnote)
-            }
-            Spacer()
-            Text(viewModel.distance)
-            Image(systemName: viewModel.inclusionStateIconName)
-                .onTapGesture {
-                    self.viewModel.toggleInclusion()
+        WithViewStore(store) { viewStore in
+            HStack {
+                Text(viewStore.iconName)
+                VStack(alignment: .leading) {
+                    Text(viewStore.name).font(.body)
+                    Text(viewStore.date).font(.footnote)
                 }
+                Spacer()
+                Text("\(viewStore.distance.asRoundedKM) km")
+                Image(systemName: viewStore.isIncluded ? "checkmark.circle.fill" : "circle")
+            }
+            .onTapGesture {
+                viewStore.send(.inclusionToggled)
+            }
         }
     }
 }
@@ -49,16 +52,17 @@ struct WorkoutView: View {
 struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutView(
-            viewModel: WorkoutViewModel(
-                workout: Workout(
+            store: Store(
+                initialState: Workout(
                     id: UUID(),
-                    iconName: "circle",
+                    iconName: "🏃🏻‍♂️💨",
                     name: "Run",
                     date: "5 June",
                     distance: 1234,
                     isIncluded: true
-                )
-            )
+                ),
+                reducer: workoutReducer,
+                environment: WorkoutEnvironment())
         )
     }
 }
