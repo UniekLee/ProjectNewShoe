@@ -1,5 +1,6 @@
 import Foundation
 import HealthKit
+import ComposableArchitecture
 
 extension HKWorkout: Identifiable {
     public var id: UUID { uuid }
@@ -14,19 +15,20 @@ class WorkoutLoader: ObservableObject {
         self.store = HKHealthStore()
     }
 
-    func load(completion: @escaping ([Workout]) -> Void) {
-        let workouts = Set([HKObjectType.workoutType()])
-
-        store.requestAuthorization(toShare: [], read: workouts) { (success, error) in
-            if !success {
-                // Handle the error here.
-            } else {
-                self.loadSources { sources in
-                    self.loadWorkouts(from: sources) { (workoutsOrNil, errorOrNil) in
-                        guard let hkWorkouts = workoutsOrNil
-                        else { fatalError("No workouts") }
-                        let workouts = hkWorkouts.map({ Workout(hkWorkout: $0) })
-                        completion(workouts)
+    func load() -> Effect<[Workout], WorkoutLookupError> {
+        return .future { promise in
+            let workouts = Set([HKObjectType.workoutType()])
+            self.store.requestAuthorization(toShare: [], read: workouts) { (success, error) in
+                if !success {
+                    promise(.failure(.unknown))
+                } else {
+                    self.loadSources { sources in
+                        self.loadWorkouts(from: sources) { (workoutsOrNil, errorOrNil) in
+                            guard let hkWorkouts = workoutsOrNil
+                            else { fatalError("No workouts") }
+                            let workouts = hkWorkouts.map({ Workout(hkWorkout: $0) })
+                            promise(.success(workouts))
+                        }
                     }
                 }
             }

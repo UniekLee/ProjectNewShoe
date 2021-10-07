@@ -63,17 +63,9 @@ let appReducer: Reducer<AppState, AppAction, AppEnvironment> = .combine(
 struct ContentView: View {
     let store: Store<AppState, AppAction>
 
-    enum DataState {
-        case loading, noData
-        case loaded(workouts: [Workout])
-    }
-
-    private let loader = WorkoutLoader()
-    @State private var state: DataState = .loading
-
     var body: some View {
-        NavigationView {
-            WithViewStore(self.store) { viewStore in
+        WithViewStore(self.store) { viewStore in
+            NavigationView {
                 List {
                     ForEachStore(
                         self.store.scope(
@@ -83,8 +75,13 @@ struct ContentView: View {
                         content: WorkoutView.init(store:)
                     )
                 }
-            }.navigationTitle("Project New Shoe")
+                .navigationTitle("Project New Shoe")
+            }
+            .onAppear {
+                viewStore.send(.viewAppeared)
+            }
         }
+    }
 //        NavigationView {
 //            switch state {
 //            case .loading:
@@ -95,23 +92,14 @@ struct ContentView: View {
 //                WorkoutListView(viewModel: WorkoutListViewModel(workouts: workouts))
 //            }
 //        }
-//        .onAppear {
-//            loader.load { workouts in
-//                if workouts.isEmpty {
-//                    self.state = .noData
-//                } else {
-//                    self.state = .loaded(workouts: workouts)
-//                }
-//            }
-//        }
-    }
+//    }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(
             store: Store(
-                initialState: AppState(workouts: .notLoaded),
+                initialState: AppState(workouts: []),
                 reducer: appReducer,
                 environment: AppEnvironment(
                     workoutLoader: { Effect(value: Workout.mockWorkouts) }
@@ -137,7 +125,7 @@ extension Workout {
             name: "Walk",
             date: "3 June",
             distance: 9256,
-            isIncluded: true
+            isIncluded: false
         ),
         Workout(
             id: UUID(),

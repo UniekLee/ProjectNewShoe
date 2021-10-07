@@ -21,8 +21,8 @@ struct WorkoutEnvironment {}
 let workoutReducer = Reducer<Workout, WorkoutAction, WorkoutEnvironment> { state, action, env in
     switch action {
     case .inclusionToggled:
-        // TODO: Need to update Persistence here 
         state.isIncluded.toggle()
+        // TODO: Figure out how to persist this
         return .none
     }
 }
