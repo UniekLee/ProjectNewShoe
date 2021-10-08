@@ -23,8 +23,9 @@ class Persistence {
         self.workoutSelection = domainModel(for: workoutSelectionDb)
     }
 
-    func toggle(workout: Workout) {
+    func toggle(workout: Workout) -> Bool {
         workoutSelection[workout.id] = !workout.isIncluded
+        return isIncluded(workout.id)
     }
 
     func isIncluded(_ id: UUID) -> Bool {

@@ -13,16 +13,20 @@ struct Workout: Equatable, Identifiable {
 }
 
 enum WorkoutAction {
-    case inclusionToggled
+    case workoutTapped
+    case inclusionToggled(isIncluded: Bool)
 }
 
-struct WorkoutEnvironment {}
+struct WorkoutEnvironment {
+    let toggleSelection: ((_ workout: Workout) -> Effect<Bool, Never>)
+}
 
 let workoutReducer = Reducer<Workout, WorkoutAction, WorkoutEnvironment> { state, action, env in
     switch action {
-    case .inclusionToggled:
-        state.isIncluded.toggle()
-        // TODO: Figure out how to persist this
+    case .workoutTapped:
+        return env.toggleSelection(state).map(WorkoutAction.inclusionToggled(isIncluded:))
+    case .inclusionToggled(let isIncluded):
+        state.isIncluded = isIncluded
         return .none
     }
 }
@@ -43,7 +47,7 @@ struct WorkoutView: View {
                 Image(systemName: viewStore.isIncluded ? "checkmark.circle.fill" : "circle")
             }
             .onTapGesture {
-                viewStore.send(.inclusionToggled)
+                viewStore.send(.workoutTapped)
             }
         }
     }
@@ -62,7 +66,10 @@ struct WorkoutView_Previews: PreviewProvider {
                     isIncluded: true
                 ),
                 reducer: workoutReducer,
-                environment: WorkoutEnvironment())
+                environment: WorkoutEnvironment(
+                    toggleSelection: { _ in return Effect(value: true) }
+                )
+            )
         )
     }
 }

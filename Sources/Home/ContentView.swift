@@ -35,7 +35,12 @@ let appReducer: Reducer<AppState, AppAction, AppEnvironment> = .combine(
         workoutReducer.forEach(
             state: \AppState.workouts,
             action: /AppAction.workout(index:action:),
-            environment: { _ in WorkoutEnvironment() }
+            environment: { _ in WorkoutEnvironment(
+                toggleSelection: { workout in
+                    let isIncluded = Persistence.shared.toggle(workout: workout)
+                    return Effect(value: isIncluded)
+                }
+            ) }
         ),
         Reducer { state, action, environment in
             switch action {
