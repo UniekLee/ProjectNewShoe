@@ -1,15 +1,15 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct Workout: Equatable, Identifiable {
-    let id: UUID
+public struct Workout: Equatable, Identifiable {
+    public let id: UUID
 
-    let iconName: String
-    let name: String
-    let date: String
-    let distance: Int
+    public let iconName: String
+    public let name: String
+    public let date: String
+    public let distance: Int
 
-    var isIncluded: Bool
+    public var isIncluded: Bool
 }
 
 enum WorkoutAction {
@@ -17,7 +17,7 @@ enum WorkoutAction {
     case inclusionToggled(isIncluded: Bool)
 }
 
-struct WorkoutEnvironment {
+public struct WorkoutEnvironment {
     let toggleSelection: ((_ workout: Workout) -> Effect<Bool, Never>)
 }
 

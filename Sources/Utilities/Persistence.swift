@@ -1,12 +1,12 @@
 import Foundation
 
-class Persistence {
+public class Persistence {
     private static let selectedWorkoutKeys = "selected_workout_ids"
-    typealias DomainWorkout = Dictionary<UUID, Bool>
-    typealias PersistenceWorkout = Dictionary<String, Bool>
+    public typealias DomainWorkout = Dictionary<UUID, Bool>
+    public typealias PersistenceWorkout = Dictionary<String, Bool>
 
 
-    static let shared: Persistence = Persistence()
+    public static let shared: Persistence = Persistence()
     private let defaults = UserDefaults.standard
 
     private var workoutSelection: DomainWorkout = [:] {
@@ -18,17 +18,17 @@ class Persistence {
         }
     }
 
-    init() {
+    public init() {
         let workoutSelectionDb = defaults.object(forKey: Persistence.selectedWorkoutKeys) as? PersistenceWorkout ?? [:]
         self.workoutSelection = domainModel(for: workoutSelectionDb)
     }
 
-    func toggle(workout: Workout) -> Bool {
+    public func toggle(workout: Workout) -> Bool {
         workoutSelection[workout.id] = !workout.isIncluded
         return isIncluded(workout.id)
     }
 
-    func isIncluded(_ id: UUID) -> Bool {
+    public func isIncluded(_ id: UUID) -> Bool {
         workoutSelection[id] ?? false
     }
 }

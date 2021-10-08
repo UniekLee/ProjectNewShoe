@@ -1,6 +1,6 @@
 import Foundation
 
-class Formatter {
+public class Formatter {
     private static let shared: Formatter = Formatter()
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -9,10 +9,10 @@ class Formatter {
     }()
 }
 
-extension Formatter {
+public extension Formatter {
     static var date: DateFormatter { Formatter.shared.dateFormatter }
 }
 
-extension Int {
+public extension Int {
     var asRoundedKM: Double { round((Double(self) / 10)) / 100 }
 }

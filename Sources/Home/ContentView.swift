@@ -16,7 +16,6 @@ enum LoadState: Equatable {
 struct AppState: Equatable {
     var loadState: LoadState = .notLoaded
     var workouts: [Workout] = []
-    // Populated if we can't look up the Workouts.
     var workoutLookupErrorMessage: String?
 }
 
