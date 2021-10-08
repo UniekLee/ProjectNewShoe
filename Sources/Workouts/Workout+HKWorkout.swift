@@ -32,10 +32,10 @@ extension HKWorkout {
     }
 
     var totalDistanceInM: Int {
-        Int(
-            (totalDistance?.doubleValue(
+        Int((
+            totalDistance?.doubleValue(
                 for: HKUnit.meter()
-            ) ?? 0)
-        )
+            ) ?? 0
+        ))
     }
 }
