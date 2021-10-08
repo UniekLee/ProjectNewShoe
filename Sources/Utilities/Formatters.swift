@@ -12,3 +12,7 @@ class Formatter {
 extension Formatter {
     static var date: DateFormatter { Formatter.shared.dateFormatter }
 }
+
+extension Int {
+    var asRoundedKM: Double { round((Double(self) / 10)) / 100 }
+}

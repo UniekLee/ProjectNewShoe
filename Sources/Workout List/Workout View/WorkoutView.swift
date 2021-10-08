@@ -43,7 +43,7 @@ struct WorkoutView: View {
                     Text(viewStore.date).font(.footnote)
                 }
                 Spacer()
-                Text("\(viewStore.distance.asRoundedKM) km")
+                Text("\(viewStore.distance.asRoundedKM, specifier: "%.2f") km")
                 Image(systemName: viewStore.isIncluded ? "checkmark.circle.fill" : "circle")
             }
             .onTapGesture {
