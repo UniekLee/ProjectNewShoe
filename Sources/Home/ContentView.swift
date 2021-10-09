@@ -17,6 +17,7 @@ struct AppState: Equatable {
     var loadState: LoadState = .notLoaded
     var workouts: [Workout] = []
     var workoutLookupErrorMessage: String?
+    var totalDistanceOfIncludedWorkouts: Int = 0
 }
 
 enum AppAction {
@@ -44,6 +45,9 @@ let appReducer: Reducer<AppState, AppAction, AppEnvironment> = .combine(
         Reducer { state, action, environment in
             switch action {
             case .workout:
+                state.totalDistanceOfIncludedWorkouts = state.workouts
+                    .filter({ $0.isIncluded })
+                    .reduce(0, { $0 + $1.distance })
                 return .none
             case .viewAppeared:
                 state.loadState = .loading
@@ -54,6 +58,9 @@ let appReducer: Reducer<AppState, AppAction, AppEnvironment> = .combine(
             case .workoutFetchResponse(.success(let workouts)):
                 state.loadState = .loaded
                 state.workouts = workouts
+                state.totalDistanceOfIncludedWorkouts = state.workouts
+                    .filter({ $0.isIncluded })
+                    .reduce(0, { $0 + $1.distance })
                 return .none
             case .workoutFetchResponse(.failure):
                 state.workoutLookupErrorMessage = "Couldn't fetch workouts"
@@ -70,14 +77,21 @@ struct ContentView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             NavigationView {
-                List {
-                    ForEachStore(
-                        self.store.scope(
-                            state: \.workouts,
-                            action: AppAction.workout(index:action:)
-                        ),
-                        content: WorkoutView.init(store:)
-                    )
+                VStack {
+                    HStack {
+                        Text("Total distance")
+                        Spacer()
+                        Text("\(viewStore.totalDistanceOfIncludedWorkouts.asRoundedKM, specifier: "%.2f") km / 800 km")
+                    }.padding()
+                    List {
+                        ForEachStore(
+                            self.store.scope(
+                                state: \.workouts,
+                                action: AppAction.workout(index:action:)
+                            ),
+                            content: WorkoutView.init(store:)
+                        )
+                    }
                 }
                 .navigationTitle("Project New Shoe")
             }
