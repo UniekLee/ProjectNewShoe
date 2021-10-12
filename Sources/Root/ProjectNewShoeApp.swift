@@ -7,7 +7,7 @@ struct ProjectNewShoeApp: App {
         WindowGroup {
             ContentView(
                 store: Store(
-                    initialState: AppState(workouts: []),
+                    initialState: AppState(),
                     reducer: appReducer,
                     environment: AppEnvironment(
                         workoutLoader: WorkoutLoader().load

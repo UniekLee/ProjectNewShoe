@@ -7,6 +7,7 @@ public struct Workout: Equatable, Identifiable {
     public let iconName: String
     public let name: String
     public let date: String
+    public let time: String
     public let distance: Int
 
     public var isIncluded: Bool
@@ -40,7 +41,7 @@ struct WorkoutView: View {
                 Text(viewStore.iconName)
                 VStack(alignment: .leading) {
                     Text(viewStore.name).font(.body)
-                    Text(viewStore.date).font(.footnote)
+                    Text(viewStore.time).font(.footnote)
                 }
                 Spacer()
                 Text("\(viewStore.distance.asRoundedKM, specifier: "%.2f") km")
@@ -57,14 +58,7 @@ struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutView(
             store: Store(
-                initialState: Workout(
-                    id: UUID(),
-                    iconName: "🏃🏻‍♂️💨",
-                    name: "Run",
-                    date: "5 June",
-                    distance: 1234,
-                    isIncluded: true
-                ),
+                initialState: Workout.mockWorkouts.first!,
                 reducer: workoutReducer,
                 environment: WorkoutEnvironment(
                     toggleSelection: { _ in return Effect(value: true) }

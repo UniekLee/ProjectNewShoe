@@ -15,7 +15,7 @@ enum LoadState: Equatable {
 // Core domain of the app
 struct AppState: Equatable {
     var loadState: LoadState = .notLoaded
-    var workouts: [Workout] = []
+    var dateSections: [DateSectionState] = []
     var workoutLookupErrorMessage: String?
     var totalDistanceOfIncludedWorkouts: Int = 0
 }
@@ -23,7 +23,7 @@ struct AppState: Equatable {
 enum AppAction {
     case viewAppeared
     case workoutFetchResponse(Result<[Workout], WorkoutLookupError>)
-    case workout(index: Int, action: WorkoutAction)
+    case section(index: Int, action: DateSectionAction)
 }
 
 struct AppEnvironment {
@@ -32,20 +32,16 @@ struct AppEnvironment {
 
 let appReducer: Reducer<AppState, AppAction, AppEnvironment> = .combine(
     [
-        workoutReducer.forEach(
-            state: \AppState.workouts,
-            action: /AppAction.workout(index:action:),
-            environment: { _ in WorkoutEnvironment(
-                toggleSelection: { workout in
-                    let isIncluded = Persistence.shared.toggle(workout: workout)
-                    return Effect(value: isIncluded)
-                }
-            ) }
+        dateSectionReducer.forEach(
+            state: \AppState.dateSections,
+            action: /AppAction.section(index:action:),
+            environment: { _ in DateSectionEnvironment() }
         ),
         Reducer { state, action, environment in
             switch action {
-            case .workout:
-                state.totalDistanceOfIncludedWorkouts = state.workouts
+            case .section:
+                state.totalDistanceOfIncludedWorkouts = state.dateSections
+                    .flatMap(\.workouts)
                     .filter({ $0.isIncluded })
                     .reduce(0, { $0 + $1.distance })
                 return .none
@@ -57,8 +53,14 @@ let appReducer: Reducer<AppState, AppAction, AppEnvironment> = .combine(
                     .map(AppAction.workoutFetchResponse)
             case .workoutFetchResponse(.success(let workouts)):
                 state.loadState = .loaded
-                state.workouts = workouts
-                state.totalDistanceOfIncludedWorkouts = state.workouts
+                state.dateSections = Dictionary(
+                    grouping: workouts,
+                    by: { $0.date }
+                ).map { key, value in
+                    DateSectionState(title: key, workouts: value)
+                }
+                state.totalDistanceOfIncludedWorkouts = state.dateSections
+                    .flatMap(\.workouts)
                     .filter({ $0.isIncluded })
                     .reduce(0, { $0 + $1.distance })
                 return .none
@@ -86,12 +88,12 @@ struct ContentView: View {
                     List {
                         ForEachStore(
                             self.store.scope(
-                                state: \.workouts,
-                                action: AppAction.workout(index:action:)
+                                state: \.dateSections,
+                                action: AppAction.section(index:action:)
                             ),
-                            content: WorkoutView.init(store:)
+                            content: DateSectionView.init(store:)
                         )
-                    }
+                    }.listStyle(InsetGroupedListStyle())
                 }
                 .navigationTitle("Project New Shoe")
             }
@@ -117,7 +119,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(
             store: Store(
-                initialState: AppState(workouts: []),
+                initialState: AppState(),
                 reducer: appReducer,
                 environment: AppEnvironment(
                     workoutLoader: { Effect(value: Workout.mockWorkouts) }
@@ -134,6 +136,7 @@ extension Workout {
             iconName: "🏃🏻‍♂️💨",
             name: "Run",
             date: "5 June",
+            time: "05:37",
             distance: 1234,
             isIncluded: true
         ),
@@ -142,6 +145,7 @@ extension Workout {
             iconName: "🚶🏻‍♂️✨",
             name: "Walk",
             date: "3 June",
+            time: "05:37",
             distance: 9256,
             isIncluded: false
         ),
@@ -150,6 +154,7 @@ extension Workout {
             iconName: "🏃🏻‍♂️💨",
             name: "Run",
             date: "1 June",
+            time: "05:37",
             distance: 2693,
             isIncluded: true
         )
