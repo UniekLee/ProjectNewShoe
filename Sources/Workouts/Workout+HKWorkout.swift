@@ -7,7 +7,7 @@ extension Workout {
 
         self.iconName = hkWorkout.image
         self.name = hkWorkout.name
-        self.date = Formatter.date.string(from: hkWorkout.startDate)
+        self.date = Date.removingTime(from: hkWorkout.startDate)
         self.time = Formatter.time.string(from: hkWorkout.startDate)
         self.distance = hkWorkout.totalDistanceInM
 

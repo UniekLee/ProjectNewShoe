@@ -6,7 +6,7 @@ public struct Workout: Equatable, Identifiable {
 
     public let iconName: String
     public let name: String
-    public let date: String
+    public let date: Date
     public let time: String
     public let distance: Int
 

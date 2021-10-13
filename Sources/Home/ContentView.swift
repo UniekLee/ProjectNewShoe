@@ -15,6 +15,7 @@ enum LoadState: Equatable {
 // Core domain of the app
 struct AppState: Equatable {
     var loadState: LoadState = .notLoaded
+    // TODO: Figure out how to make sure that there are organised by dates, decending.
     var dateSections: [DateSectionState] = []
     var workoutLookupErrorMessage: String?
     var totalDistanceOfIncludedWorkouts: Int = 0
@@ -56,9 +57,11 @@ let appReducer: Reducer<AppState, AppAction, AppEnvironment> = .combine(
                 state.dateSections = Dictionary(
                     grouping: workouts,
                     by: { $0.date }
-                ).map { key, value in
-                    DateSectionState(title: key, workouts: value)
-                }
+                )
+                    .sorted { $0.key > $1.key }
+                    .map { key, value in
+                        DateSectionState(date: key, workouts: value)
+                    }
                 state.totalDistanceOfIncludedWorkouts = state.dateSections
                     .flatMap(\.workouts)
                     .filter({ $0.isIncluded })
@@ -135,7 +138,7 @@ extension Workout {
             id: UUID(),
             iconName: "🏃🏻‍♂️💨",
             name: "Run",
-            date: "5 June",
+            date: Date(),
             time: "05:37",
             distance: 1234,
             isIncluded: true
@@ -144,7 +147,7 @@ extension Workout {
             id: UUID(),
             iconName: "🚶🏻‍♂️✨",
             name: "Walk",
-            date: "3 June",
+            date: Date(),
             time: "05:37",
             distance: 9256,
             isIncluded: false
@@ -153,7 +156,7 @@ extension Workout {
             id: UUID(),
             iconName: "🏃🏻‍♂️💨",
             name: "Run",
-            date: "1 June",
+            date: Date(),
             time: "05:37",
             distance: 2693,
             isIncluded: true

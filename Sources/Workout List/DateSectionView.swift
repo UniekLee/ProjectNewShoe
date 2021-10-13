@@ -3,7 +3,7 @@ import SwiftUI
 
 struct DateSectionState: Equatable, Identifiable {
     let id: UUID = UUID()
-    let title: String
+    let date: Date
     var workouts: [Workout]
 }
 
@@ -32,7 +32,9 @@ struct DateSectionView: View {
     let store: Store<DateSectionState, DateSectionAction>
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            Section(header: Text(viewStore.state.title)) {
+            Section(
+                header: Text(Formatter.date.string(from: viewStore.state.date))
+            ) {
                 ForEachStore(
                     self.store.scope(
                         state: \.workouts,
@@ -50,7 +52,7 @@ struct DateSectionView_Previews: PreviewProvider {
         DateSectionView(
             store: Store(
                 initialState: DateSectionState(
-                    title: "Today",
+                    date: Date(),
                     workouts: Workout.mockWorkouts
                 ),
                 reducer: dateSectionReducer,
