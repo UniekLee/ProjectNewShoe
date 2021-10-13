@@ -21,7 +21,7 @@ let project = Project(
             resources: [
                 "Resources/**"
             ],
-            entitlements: "Config/ProjectNewShoe.plist",
+            entitlements: "Config/ProjectNewShoe.entitlements",
             dependencies: [
                 .sdk(name: "HealthKit.framework", status: .required),
                 .package(product: "ComposableArchitecture")
