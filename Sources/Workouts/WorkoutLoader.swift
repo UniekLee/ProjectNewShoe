@@ -8,14 +8,14 @@ extension HKWorkout: Identifiable {
 
 class WorkoutLoader: ObservableObject {
     private let store: HKHealthStore
-    @Published var workouts: [Workout] = []
+    @Published var workouts: [WorkoutState] = []
 
     init() {
         guard HKHealthStore.isHealthDataAvailable() else { fatalError("HealthKit unavailable") }
         self.store = HKHealthStore()
     }
 
-    func load() -> Effect<[Workout], WorkoutLookupError> {
+    func load() -> Effect<[WorkoutState], WorkoutLookupError> {
         return .future { promise in
             let workouts = Set([HKObjectType.workoutType()])
             self.store.requestAuthorization(toShare: [], read: workouts) { (success, error) in
@@ -26,7 +26,7 @@ class WorkoutLoader: ObservableObject {
                         self.loadWorkouts(from: sources) { (workoutsOrNil, errorOrNil) in
                             guard let hkWorkouts = workoutsOrNil
                             else { fatalError("No workouts") }
-                            let workouts = hkWorkouts.map({ Workout(hkWorkout: $0) })
+                            let workouts = hkWorkouts.map({ WorkoutState(hkWorkout: $0) })
                             promise(.success(workouts))
                         }
                     }

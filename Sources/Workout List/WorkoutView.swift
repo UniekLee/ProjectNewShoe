@@ -1,7 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
 
-public struct Workout: Equatable, Identifiable {
+public struct WorkoutState: Equatable, Identifiable {
     public let id: UUID
 
     public let iconName: String
@@ -19,10 +19,10 @@ enum WorkoutAction {
 }
 
 public struct WorkoutEnvironment {
-    let toggleSelection: ((_ workout: Workout) -> Effect<Bool, Never>)
+    let toggleSelection: ((_ workout: WorkoutState) -> Effect<Bool, Never>)
 }
 
-let workoutReducer = Reducer<Workout, WorkoutAction, WorkoutEnvironment> { state, action, env in
+let workoutReducer = Reducer<WorkoutState, WorkoutAction, WorkoutEnvironment> { state, action, env in
     switch action {
     case .workoutTapped:
         return env.toggleSelection(state).map(WorkoutAction.inclusionToggled(isIncluded:))
@@ -33,7 +33,7 @@ let workoutReducer = Reducer<Workout, WorkoutAction, WorkoutEnvironment> { state
 }
 
 struct WorkoutView: View {
-    let store: Store<Workout, WorkoutAction>
+    let store: Store<WorkoutState, WorkoutAction>
 
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -58,7 +58,7 @@ struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutView(
             store: Store(
-                initialState: Workout.mockWorkouts.first!,
+                initialState: WorkoutState.mockWorkouts.first!,
                 reducer: workoutReducer,
                 environment: WorkoutEnvironment(
                     toggleSelection: { _ in return Effect(value: true) }

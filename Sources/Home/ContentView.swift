@@ -23,12 +23,12 @@ struct AppState: Equatable {
 
 enum AppAction {
     case viewAppeared
-    case workoutFetchResponse(Result<[Workout], WorkoutLookupError>)
+    case workoutFetchResponse(Result<[WorkoutState], WorkoutLookupError>)
     case section(index: Int, action: DateSectionAction)
 }
 
 struct AppEnvironment {
-    let workoutLoader: () -> Effect<[Workout], WorkoutLookupError>
+    let workoutLoader: () -> Effect<[WorkoutState], WorkoutLookupError>
 }
 
 let appReducer: Reducer<AppState, AppAction, AppEnvironment> = .combine(
@@ -125,16 +125,16 @@ struct ContentView_Previews: PreviewProvider {
                 initialState: AppState(),
                 reducer: appReducer,
                 environment: AppEnvironment(
-                    workoutLoader: { Effect(value: Workout.mockWorkouts) }
+                    workoutLoader: { Effect(value: WorkoutState.mockWorkouts) }
                 )
             )
         )
     }
 }
 
-extension Workout {
-    static let mockWorkouts: [Workout] = [
-        Workout(
+extension WorkoutState {
+    static let mockWorkouts: [WorkoutState] = [
+        WorkoutState(
             id: UUID(),
             iconName: "🏃🏻‍♂️💨",
             name: "Run",
@@ -143,7 +143,7 @@ extension Workout {
             distance: 1234,
             isIncluded: true
         ),
-        Workout(
+        WorkoutState(
             id: UUID(),
             iconName: "🚶🏻‍♂️✨",
             name: "Walk",
@@ -152,7 +152,7 @@ extension Workout {
             distance: 9256,
             isIncluded: false
         ),
-        Workout(
+        WorkoutState(
             id: UUID(),
             iconName: "🏃🏻‍♂️💨",
             name: "Run",

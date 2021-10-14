@@ -1,7 +1,7 @@
 import Foundation
 import HealthKit
 
-extension Workout {
+extension WorkoutState {
     init(hkWorkout: HKWorkout) {
         self.id = hkWorkout.uuid
 

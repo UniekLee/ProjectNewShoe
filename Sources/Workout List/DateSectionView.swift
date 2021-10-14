@@ -4,7 +4,7 @@ import SwiftUI
 struct DateSectionState: Equatable, Identifiable {
     let id: UUID = UUID()
     let date: Date
-    var workouts: [Workout]
+    var workouts: [WorkoutState]
 }
 
 enum DateSectionAction {
@@ -53,7 +53,7 @@ struct DateSectionView_Previews: PreviewProvider {
             store: Store(
                 initialState: DateSectionState(
                     date: Date(),
-                    workouts: Workout.mockWorkouts
+                    workouts: WorkoutState.mockWorkouts
                 ),
                 reducer: dateSectionReducer,
                 environment: DateSectionEnvironment()
