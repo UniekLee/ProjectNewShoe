@@ -15,7 +15,6 @@ enum LoadState: Equatable {
 // Core domain of the app
 struct AppState: Equatable {
     var loadState: LoadState = .notLoaded
-    // TODO: Figure out how to make sure that there are organised by dates, decending.
     var dateSections: [DateSectionState] = []
     var workoutLookupErrorMessage: String?
     var totalDistanceOfIncludedWorkouts: Int = 0
@@ -24,7 +23,7 @@ struct AppState: Equatable {
 enum AppAction {
     case viewAppeared
     case workoutFetchResponse(Result<[WorkoutState], WorkoutLookupError>)
-    case section(index: Int, action: DateSectionAction)
+    case workoutsListAction
 }
 
 struct AppEnvironment {
@@ -33,19 +32,8 @@ struct AppEnvironment {
 
 let appReducer: Reducer<AppState, AppAction, AppEnvironment> = .combine(
     [
-        dateSectionReducer.forEach(
-            state: \AppState.dateSections,
-            action: /AppAction.section(index:action:),
-            environment: { _ in DateSectionEnvironment() }
-        ),
         Reducer { state, action, environment in
             switch action {
-            case .section:
-                state.totalDistanceOfIncludedWorkouts = state.dateSections
-                    .flatMap(\.workouts)
-                    .filter({ $0.isIncluded })
-                    .reduce(0, { $0 + $1.distance })
-                return .none
             case .viewAppeared:
                 state.loadState = .loading
                 return environment
@@ -71,6 +59,9 @@ let appReducer: Reducer<AppState, AppAction, AppEnvironment> = .combine(
                 state.workoutLookupErrorMessage = "Couldn't fetch workouts"
                 state.loadState = .loaded
                 return .none
+            case .workoutsListAction:
+                // TODO: Figure out how to pull-back the state change in the WorkoutsListView into the AppState 👍🏻
+                return .none
             }
         }
     ]
@@ -83,20 +74,17 @@ struct ContentView: View {
         WithViewStore(self.store) { viewStore in
             NavigationView {
                 VStack {
-                    HStack {
-                        Text("Total distance")
-                        Spacer()
-                        Text("\(viewStore.totalDistanceOfIncludedWorkouts.asRoundedKM, specifier: "%.2f") km / 800 km")
-                    }.padding()
-                    List {
-                        ForEachStore(
-                            self.store.scope(
-                                state: \.dateSections,
-                                action: AppAction.section(index:action:)
-                            ),
-                            content: DateSectionView.init(store:)
+                    WorkoutsList(
+                        store: self.store.scope(
+                            state: { appState in
+                                return WorkoutsListState(
+                                    totalDistanceOfIncludedWorkouts: appState.totalDistanceOfIncludedWorkouts,
+                                    dateSections: appState.dateSections
+                                )
+                            },
+                            action: { _ in AppAction.workoutsListAction }
                         )
-                    }.listStyle(InsetGroupedListStyle())
+                    )
                 }
                 .navigationTitle("Project New Shoe")
             }
